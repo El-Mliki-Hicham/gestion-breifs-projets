@@ -67,6 +67,9 @@ return[
     'btn_affecter'=>'Affecter',
     'title1'=>'Gestion des apprenant',
     'apprenant'=>'Liste des apprenant',
+    'logo'=>'Logo',
+    'année'=>'Année de formation',
+    'gestion_de_groupe'=>'Gestion de groupe'
 
 
 

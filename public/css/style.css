@@ -185,3 +185,6 @@ h5.card-title {
     background-color: #04AA6D;
     color: white;
   }
+  .hidden {
+    display: block !important;
+  }

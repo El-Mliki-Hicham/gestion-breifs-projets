@@ -68,6 +68,9 @@ return[
     'btn_affecter'=>'Affect',
     'title1'=>'Learner management',
     'apprenant'=>'Learner List',
+    'logo'=>'Logo',
+    'année'=>'Year of study',
+    'gestion_de_groupe'=>'group management'
 
 ]
 

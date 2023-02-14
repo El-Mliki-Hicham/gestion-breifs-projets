@@ -4,6 +4,7 @@ use App\Http\Controllers\ApprenantController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroupesApprenantController;
 use App\Http\Controllers\googleController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PreparationBriefController;
 use App\Http\Controllers\PreparationTacheController;
 use App\Http\Controllers\ProfileController;
@@ -39,14 +40,16 @@ require __DIR__.'/auth.php';
 
 Route::group(['prefix'=>LaravelLocalization::setLocale(),'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath',"auth"]],function(){
 
-      //Apprenant
-      Route::resource('apprenant', ApprenantController::class);
-      route::get('/pagination/fetch2_data',[ApprenantController::class,'fetch2_data'])->name('/pagination/fetch2_data');
-      Route::get('/pagination/fetch_data', [ApprenantController::class,'fetch_data'])->name('/pagination/fetch_data');
+    //Apprenant
+    Route::resource('apprenant', ApprenantController::class);
+    route::get('/pagination/fetch2_data',[ApprenantController::class,'fetch2_data'])->name('/pagination/fetch2_data');
+    Route::get('/pagination/fetch_data', [ApprenantController::class,'fetch_data'])->name('/pagination/fetch_data');
 
-      Route::get('exportexcelapprenant',[ApprenantController::class,'exportexcel'])->name('exportexcelapprenant');
-      Route::post('importexcelapprenant',[ApprenantController::class,'importexcel'])->name('importexcelapprenant');
-      route::get('/generatepdfapprenant',[ApprenantController::class,'generatepdf'])->name('generatepdfapprenant');
+    Route::get('exportexcelapprenant',[ApprenantController::class,'exportexcel'])->name('exportexcelapprenant');
+    Route::post('importexcelapprenant',[ApprenantController::class,'importexcel'])->name('importexcelapprenant');
+    route::get('/generatepdfapprenant',[ApprenantController::class,'generatepdf'])->name('generatepdfapprenant');
 
-
+    //Groupe
+    Route::resource('groupe', GroupController::class);
+    Route::get('searchGroup', [GroupController::class, 'search'])->name('search');
     });
