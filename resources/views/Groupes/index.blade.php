@@ -19,25 +19,29 @@
                     <div class="col-sm-8">
                         {{-- <h2>{{__('message.gestion_de_groupe')}}</h2> --}}
                     </div>
-
                 </div>
+                @if (Session::has('true'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{Session::get('true')}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    @endif
                 <div class="col-sm-12 d-flex justify-content-between p-3">
                     <div class="d-flex justify-content-between">
-                        {{-- <a href="{{ route('brief.create') }}" class="btn btn-primary">{{__('message.add_brief')}}</a> --}}
+                        <a href="{{ route('groupe.create') }}" class="btn btn-primary">{{__('message.add_brief')}}</a>
                     </div>
 
                     <div class="search-box">
                         <i class="material-icons">&#xE8B6;</i>
                         <input type="text" class="form-control" id="search" placeholder="Search&hellip;">
                     </div>
-
                 </div>
             </div>
 
     <table class="table table-striped table-hover table-bordered">
         <thead>
             <tr>
-                <th>{{__('message.logo')}}</th>
+                <th style="width: 1em">{{__('message.logo')}}</th>
                 <th>{{__('message.name')}}</th>
                 <th>{{__('message.année')}}</th>
                 <th>{{__('message.actions')}}</th>
@@ -46,18 +50,22 @@
       <tbody  class="table1" id="table1">
           @foreach ($groupsPag as $value )
           <tr>
-              <td>{{ $value->Logo }}</td>
+              <td><img src="@if (isset($value->Logo))
+                {{asset('./images/groupLog/'.$value->Logo)}}
+              @else
+                {{asset('./images/groupLog/1676462542.png')}}
+              @endif" alt="" width="50" height="50"></td>
               <td>{{ $value->Nom_groupe }}</td>
               <td> {{ $value->Annee_formation_id }} </td>
               <td>
-                  {{-- <a  href="{{ route('brief.edit', $value->id)}}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> --}}
-                  <form action="" method="post">
-                      @csrf
-                      @method('DELETE')
-                      <button id="trash-icon">
-                          <a  class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                      </button>
-                  </form>
+                  <a  href="{{ route('groupe.edit', $value->id)}}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                <form action="{{route('groupe.destroy', $value->id)}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button id="trash-icon">
+                        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                    </button>
+                </form>
               </td>
           </tr>
           @endforeach
@@ -71,8 +79,8 @@
             <div class="d-flex justify-content-start">
                 {!! $groupsPag->links() !!}
         </div>
-      {{-- <div>
-          <a href="{{route('generate')}}" class="btn btn-outline-secondary" >{{__('message.export_pdf')}}</a>
+      <div>
+          <a href="{{route('group_pdf')}}" class="btn btn-outline-secondary" >{{__('message.export_pdf')}}</a>
           <a href="/exportexcel" class="btn btn-outline-secondary" >{{__('message.export_excel')}}</a>
           <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal">
             {{__('message.import_excel')}}
@@ -107,7 +115,7 @@
   </div>
 </div>
 </div>
-</div> --}}
+</div>
 
 {{-- <script type="text/javascript"> 
     {{-- $('#search').on('keyup',function(){

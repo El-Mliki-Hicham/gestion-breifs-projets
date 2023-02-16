@@ -52,4 +52,6 @@ Route::group(['prefix'=>LaravelLocalization::setLocale(),'middleware' => [ 'loca
     //Groupe
     Route::resource('groupe', GroupController::class);
     Route::get('searchGroup', [GroupController::class, 'search'])->name('search');
+    Route::get('groupe/pdf', [GroupController::class, 'groupCreatePDF'])->name('group_pdf');
+    
     });

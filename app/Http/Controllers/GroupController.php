@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Groupes;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use App\Http\Requests\GroupRequest;
 
 class GroupController extends Controller
 {
@@ -16,7 +18,7 @@ class GroupController extends Controller
     {
         //
         $groups = Groupes::all();
-        $groupsPag = Groupes::paginate(1);
+        $groupsPag = Groupes::paginate(3);
         return view('Groupes.index',["groups" => $groups, "groupsPag" => $groupsPag]);
     }
 
@@ -38,6 +40,7 @@ class GroupController extends Controller
     public function create()
     {
         //
+        return view('Groupes.create');
     }
 
     /**
@@ -46,9 +49,21 @@ class GroupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GroupRequest $request)
     {
         //
+        if($request->has('Logo')){
+            $imageName = time().'.'.$request->Logo->getClientOriginalExtension();
+            // Public Folder
+            $request->Logo->move(public_path('images/groupLog'), $imageName);
+        }else{
+            $imageName = $request->Logo;
+        }
+        $group = Groupes::create([
+            'Nom_groupe' => $request->Nom_groupe,
+            'Logo' => $imageName
+        ]);
+        return redirect()->route('groupe.index')->with(['true' => 'The groupe was added successfuly']);
     }
 
     /**
@@ -71,6 +86,8 @@ class GroupController extends Controller
     public function edit($id)
     {
         //
+        $group = Groupes::findOrFail($id);
+        return view('Groupes.edit', ['group' => $group]);
     }
 
     /**
@@ -80,9 +97,23 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GroupRequest $request, $id)
     {
-        //
+         //
+         if($request->has('Logo')){
+            $imageName = time().'.'.$request->Logo->getClientOriginalExtension();
+            // Public Folder
+            $request->Logo->move(public_path('images/groupLog'), $imageName);
+        }else{
+            $imageName= $request->input("Logo");
+        }
+        
+        $group = Groupes::findOrFail($id);
+        $group->update([
+            'Nom_groupe' => $request->Nom_groupe,
+            'Logo' => $imageName
+        ]);
+        return redirect()->route('groupe.index')->with(['true' => 'The groupe was update successfuly']);
     }
 
     /**
@@ -94,5 +125,18 @@ class GroupController extends Controller
     public function destroy($id)
     {
         //
+        $group = Groupes::findOrFail($id);
+        $group->delete();
+        return back()->with(['true' => 'The groupe was deleted successfuly']);
     }
+
+    public function groupCreatePDF() {
+        // retreive all records from db
+        $data = Groupes::all();
+        // share data to view
+        view()->share('Groupes.index',$data);
+        $pdf = PDF::loadView('pdf_view', ['data'=>$data]);
+        // download PDF file with download method
+        return $pdf->download('pdf_file_group.pdf');
+      }
 }

@@ -69,7 +69,9 @@ return[
     'apprenant'=>'Liste des apprenant',
     'logo'=>'Logo',
     'année'=>'Année de formation',
-    'gestion_de_groupe'=>'Gestion de groupe'
+    'gestion_de_groupe'=>'Gestion de groupe',
+    'add_groupe'=>'Ajouter groupe',
+    'edit_group'=>'Editer groupe'
 
 
 

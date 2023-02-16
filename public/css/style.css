@@ -188,3 +188,8 @@ h5.card-title {
   .hidden {
     display: block !important;
   }
+  /* footer{
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+  } */

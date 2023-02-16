@@ -69,8 +69,9 @@ return[
     'apprenant'=>'قائمة المتعلمين',
     'logo'=>'الشعار',
     'année'=>'السنة الدراسية',
-    'gestion de groupe'=>'ادارة المجموعة'
-
+    'gestion de groupe'=>'ادارة المجموعة',
+    'add_groupe'=>'اضافة مجموعة',
+    'edit_group'=>'تعديل المجموعة' 
 ]
 
 ?>

@@ -70,7 +70,9 @@ return[
     'apprenant'=>'Learner List',
     'logo'=>'Logo',
     'année'=>'Year of study',
-    'gestion_de_groupe'=>'group management'
+    'gestion_de_groupe'=>'group management',
+    'add_groupe'=>'Add group',
+    'edit_group'=>'Edit group'
 
 ]
 
