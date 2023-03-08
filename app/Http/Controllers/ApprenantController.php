@@ -16,7 +16,7 @@ use Illuminate\Auth\Middleware\Authorize;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ApprenantController extends Controller
-{
+{d
 
     /**
      * Display a listing of the resource.
